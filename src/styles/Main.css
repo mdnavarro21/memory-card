@@ -1,18 +1,19 @@
-#scoreboard, main > p {
-    font-size: 3vh;
+#scoreboard,
+main > p {
+  font-size: 3vh;
 }
 
 #scoreboard {
-    border-style: solid;
-    border-radius: 10px;
+  border-style: solid;
+  border-radius: 10px;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #1e293b;
-    color: white;
-    width: 20%;
-    height: 15vh;
-    margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #1e293b;
+  color: white;
+  width: 20%;
+  height: 15vh;
+  margin-bottom: 20px;
 }
