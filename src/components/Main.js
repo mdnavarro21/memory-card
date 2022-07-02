@@ -1,7 +1,7 @@
 import React, { useState }from "react";
 import Scoreboard from './main-components/Scoreboard';
 import Gameboard from './main-components/Gameboard';
-
+import '../styles/Main.css'
 const Main = () => {
     const [currentScore, setCurrentScore] = useState(0);
     const [bestScore, setBestScore] = useState(0);

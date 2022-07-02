@@ -1,8 +1,7 @@
 #gameboard {
-    border-style: solid;
 
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(7, 1fr);
     justify-items: center;
     align-items: center;
     row-gap: 40px;
@@ -14,9 +13,15 @@
 img {
     width: 100%;
     height: auto;
+
+    border-radius: 20px 20px 0px 0px;
 }
 .card {
     border-style: solid;
+    border-radius: 20px;
+
+    background-color: #1e293b;
+    color: white;
     width: 100%;
     height: 100%;
 }

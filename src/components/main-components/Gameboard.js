@@ -23,7 +23,7 @@ const Gameboard = ({handleCorrectGuess, handleIncorrectGuess}) => {
         }
         return shuffleCards(newDeck);
     })());
-    const [items, setItems] = useState([]);
+    const [cards, setCards] = useState([]);
     const [guesses, setGuesses] = useState([]);
 
     function shuffleCards(array) {
@@ -62,12 +62,12 @@ const Gameboard = ({handleCorrectGuess, handleIncorrectGuess}) => {
             return <Card key = {card.id} cardInfo = {card} handleClick = {handleClick} />
         });
 
-        setItems(newArray);
+        setCards(newArray);
     }, [cardDeck, guesses, handleIncorrectGuess, handleCorrectGuess])
 
     return (
         <div id = 'gameboard'>
-            {items}
+            {cards}
         </div>
     )
 }
