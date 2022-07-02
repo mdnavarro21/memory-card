@@ -1,8 +1,27 @@
 import React, { useState, useEffect }from "react";
+import '../../styles/Gameboard.css'
 import Card from './Card';
 
 const Gameboard = ({handleCorrectGuess, handleIncorrectGuess}) => {
-    const [cardDeck, setCardDeck] = useState([0,1,2,3,4,5,6,7,8,9]);
+    const [cardDeck, setCardDeck] = useState((() => {
+        function importAll(r) {
+            return r.keys().map(r);
+          }
+          
+        const images = importAll(require.context('../../assets', false, /\.(png|jpe?g|svg)$/));
+        console.log(images);
+        const newDeck = [];
+        for (let image of images) {
+            const card = {
+                url: image,
+                champion_name: image.match(/[A-Z].+_/),
+            }
+            newDeck.push(card);
+        }
+        return newDeck;
+    })());
+    const [items, setItems] = useState([]);
+
     const shuffleCards = (array) => {
         let currentIndex = array.length,  randomIndex;
         
@@ -19,32 +38,23 @@ const Gameboard = ({handleCorrectGuess, handleIncorrectGuess}) => {
         
         return array;
     }
+
     useEffect(() => {
-        setCardDeck(prevDeck => { return shuffleCards([...prevDeck])})
-    }, [])
+        const handleClick = (e) => {
+            const newArray = shuffleCards([...cardDeck])
+            setCardDeck(shuffleCards(newArray));
+        }
 
-
-
-    const handleClick = () => {
-        const newArray = shuffleCards([...cardDeck])
-        setCardDeck(shuffleCards(newArray));
-    }
-
-    const createCards = () => {
-        return cardDeck.map((card, index) => {
+        const newArray = cardDeck.map((card, index) => {
             return <Card key = {index} cardInfo = {card} handleClick = {handleClick} />
-        })
-    }
+        });
+
+        setItems(newArray);
+    }, [cardDeck])
 
     return (
         <div id = 'gameboard'>
-            {   /*
-                cardDeck.map((card, index) => {
-                    return <Card key = {index}cardInfo = {card} handleClick = {handleClick} correctGuess = {handleCorrectGuess} incorrectGuess = {handleIncorrectGuess}/>
-                })*/
-            }
-            <div>{createCards()}</div>
-
+            {items}
         </div>
     )
 }
