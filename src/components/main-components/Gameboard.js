@@ -1,28 +1,32 @@
 import React, { useState, useEffect }from "react";
 import '../../styles/Gameboard.css'
 import Card from './Card';
+import uniqid from 'uniqid';
 
 const Gameboard = ({handleCorrectGuess, handleIncorrectGuess}) => {
+
+    //initialize deck of champion cards using useState
     const [cardDeck, setCardDeck] = useState((() => {
         function importAll(r) {
             return r.keys().map(r);
           }
           
         const images = importAll(require.context('../../assets', false, /\.(png|jpe?g|svg)$/));
-        console.log(images);
         const newDeck = [];
         for (let image of images) {
             const card = {
                 url: image,
-                champion_name: image.match(/[A-Z].+_/),
+                champion_name: image.match(/[A-Z][a-zA-Z]+/),
+                id: uniqid(),
             }
             newDeck.push(card);
         }
-        return newDeck;
+        return shuffleCards(newDeck);
     })());
     const [items, setItems] = useState([]);
+    const [guesses, setGuesses] = useState([]);
 
-    const shuffleCards = (array) => {
+    function shuffleCards(array) {
         let currentIndex = array.length,  randomIndex;
         
         // While there remain elements to shuffle.
@@ -39,18 +43,27 @@ const Gameboard = ({handleCorrectGuess, handleIncorrectGuess}) => {
         return array;
     }
 
+
     useEffect(() => {
         const handleClick = (e) => {
-            const newArray = shuffleCards([...cardDeck])
-            setCardDeck(shuffleCards(newArray));
-        }
+            const champ = e.currentTarget.id
+            if (guesses.includes(champ)) {
+                setGuesses([]);
+                handleIncorrectGuess();
+            }
+            else {
+                handleCorrectGuess();
+                setGuesses(prevGuesses => [...prevGuesses, champ])
+            }
+            setCardDeck(shuffleCards([...cardDeck]))
+        }    
 
-        const newArray = cardDeck.map((card, index) => {
-            return <Card key = {index} cardInfo = {card} handleClick = {handleClick} />
+        const newArray = cardDeck.map((card) => {
+            return <Card key = {card.id} cardInfo = {card} handleClick = {handleClick} />
         });
 
         setItems(newArray);
-    }, [cardDeck])
+    }, [cardDeck, guesses, handleIncorrectGuess, handleCorrectGuess])
 
     return (
         <div id = 'gameboard'>

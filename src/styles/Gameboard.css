@@ -8,9 +8,13 @@
     row-gap: 40px;
     grid-gap: 40px;
 
-    height: 100vh;
+    height: auto;
 }
 
+img {
+    width: 100%;
+    height: auto;
+}
 .card {
     border-style: solid;
     width: 100%;

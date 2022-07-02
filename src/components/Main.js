@@ -24,8 +24,6 @@ const Main = () => {
         <main>
             <Scoreboard currentScore = {currentScore} bestScore = {bestScore}/>
             <Gameboard handleCorrectGuess = {handleCorrectGuess} handleIncorrectGuess = {handleIncorrectGuess}/>
-            <button onClick={handleCorrectGuess}>Correct Guess</button>
-            <button onClick = {handleIncorrectGuess}>Incorrect Guess</button>
         </main>
     )
 }
